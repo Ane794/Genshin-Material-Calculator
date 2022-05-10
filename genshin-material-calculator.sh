@@ -28,7 +28,7 @@ until (( target && amounts[0] >= target )); do
 	(( amounts[0] += c ))
 	unset c
 
-  # Outputs
+  # Outputs.
 	output={${amounts[0]}
 	for i in `seq 1 $(( rarities - 1 ))`; do
 		output="${output}, ${amounts[$i]}"

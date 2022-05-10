@@ -38,7 +38,7 @@ for /L %%i in (%rarities%, -1, 2) do (
 set /a amounts[1]+=%c%
 set c=
 
-:: Output.
+:: Outputs.
 set output={%amounts[1]%%
 for /L %%i in (2, 1, %rarities%) do (
     set output=!output!, !amounts[%%i]!
