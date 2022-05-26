@@ -1,10 +1,26 @@
 #!/usr/bin/env bash
 read -p "Enter the number of rarity types (3): " rarities
 rarities=$(( rarities ? rarities : 3 ))
-read -p "Enter the target amount of the highest rarity type (0): " target
-target=$(( target ? target : 0 ))
 
-until (( target && amounts[0] >= target )); do
+# Sets targets.
+read -p "Enter the hasTargets amount of each rarity type (0): " inputs
+i=0
+for input in $inputs; do
+  (( targets[i++] = input ))
+done
+unset input i inputs
+
+# Verifies targets.
+hasTargets=0
+for i in `seq 0 $(( rarities - 1 ))`; do
+  if (( targets[i] )); then
+    hasTargets=1
+    break
+  fi
+done
+unset i
+
+until (( hasTargets && reached )); do
   # Adds inputs to the array.
 	read -p "Enter the amount of each rarity type: " inputs
 	i=0
@@ -20,8 +36,12 @@ until (( target && amounts[0] >= target )); do
 	c=0
 	for i in `seq $(( rarities - 1 )) -1 1`; do
 		(( amounts[i] += c ))
-		(( c = amounts[i] / 3 ))
-		(( amounts[i] %= 3 ))
+		if (( amounts[i] > targets[i] )); then
+		  (( c = (amounts[i] - targets[i]) / 3 ))
+		  (( amounts[i] = targets[i] + (amounts[i] - targets[i]) % 3 ))
+		else
+		  (( c = 0 ))
+		fi
 	done
 	unset i
 	(( amounts[0] += c ))
@@ -36,6 +56,17 @@ until (( target && amounts[0] >= target )); do
 	output=$output}
 	echo $output
 	unset output
-done
 
-echo Reached the target amount.
+  # Verifies.
+  reached=1
+  for i in `seq 0 $(( rarities - 1 ))`; do
+    if (( amounts[i] < targets[i] )); then
+      reached=0
+      break
+    fi
+  done
+  unset i
+done
+unset reached
+
+echo Reached the targets.

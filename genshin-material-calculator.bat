@@ -2,15 +2,44 @@
 setLocal enableDelayedExpansion
 
 set /p rarities="Enter the number of rarity types (3): " || set rarities=3
-set /p target="Enter the target amount of the highest rarity type (0): " || set target=0
+
+:: Initializes target array.
+for /L %%i in (1, 1, %rarities%) do (
+    set targets[%%i]=0
+)
+
+:: Sets targets.
+set /p inputs="Enter the target amount of each rarity type (0): "
+set i=1
+for %%a in (%inputs%) do (
+    if !i! gtr %rarities% (
+        goto :setTargetsEnd
+    )
+    set /a targets[!i!]+=%%a
+    set /a i+=1
+)
+set i=
+set inputs=
+:setTargetsEnd
+
+:: Verifies targets.
+set hasTargets=0
+for /L %%i in (1, 1, %rarities%) do (
+    if !targets[%%i]! neq 0 (
+        set hasTargets=1
+        goto :verifyTargetsEnd
+    )
+)
+:verifyTargetsEnd
 
 :: Initializes amount array.
 for /L %%i in (1, 1, %rarities%) do (
     set amounts[%%i]=0
 )
 
+set reached=0
 :while
-if %target% neq 0 if %amounts[1]% geq %target% (
+if %hasTargets% neq 0 if %reached% neq 0 (
     goto :whileEnd
 )
 
@@ -32,8 +61,12 @@ set inputs=
 set c=0
 for /L %%i in (%rarities%, -1, 2) do (
     set /a amounts[%%i]+=!c!
-    set /a c=!amounts[%%i]!/3
-    set /a amounts[%%i]%%=3
+    if !amounts[%%i]! gtr !targets[%%i]! (
+        set /a c="(!amounts[%%i]!-!targets[%%i]!)/3"
+        set /a amounts[%%i]="!targets[%%i]!+(!amounts[%%i]!-!targets[%%i]!)%%3"
+    ) else (
+        set c=0
+    )
 )
 set /a amounts[1]+=%c%
 set c=
@@ -47,8 +80,19 @@ set output=%output%}
 echo %output%
 set output=
 
+:: Verifies.
+set reached=1
+for /L %%i in (1, 1, %rarities%) do (
+    if !amounts[%%i]! lss !targets[%%i]! (
+        set reached=0
+        goto :verifyReachedEnd
+    )
+)
+:verifyReachedEnd
+
 goto :while
 :whileEnd
+set reached=
 
-echo Reached the target amount.
+echo Reached the targets.
 pause
