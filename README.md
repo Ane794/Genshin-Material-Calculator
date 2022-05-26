@@ -12,7 +12,7 @@
 
 ### Windows
 
-雙擊 _`.\genshin-material-calculator.bat`_；  
+雙擊 [_`.\genshin-material-calculator.bat`_]；  
 或執行：
 
 ```cmd
@@ -28,15 +28,20 @@ bash ./genshin-material-calculator.sh
 ## 使用
 
 1. 輸入 _參與計算的品質數量_（默認為 `3`）；
+
 2. 輸入 _最高品質的目標數量_，使程序在最高品質素材達到目標數量時停止運行（默認為 `0`，表示不設定目標數量、程序不停止運行）；
+
 3. 在每次獲得素材時，以品質遞減的順序依次輸入 _各品質的數量_，以空格分隔。
 
 ### 示例
 
-1. 假設玩家需要三星品質的某種素材，且該素材的品質為五星、四星、三星、二星；則程序計算的最高品質為三星，共有三星、二星 2 種品質。  
+1. 假設玩家需要 _三星品質_ 的某種素材，且該素材的品質為五星、四星、三星、二星；則程序計算的最高品質為 _三星_，共有三星、二星 _2_ 種品質。  
    啓動程序后，當程序提示 `Enter the number of rarity types (3): ` 時，應輸入 `2`；若不輸入則默認爲 `3`。
 
-2. 假設玩家只需要 10 個三星品質的該素材，則當程序提示 `Enter the amount of the target rarity (0): ` 時，應輸入 `10`；  
+2. 假設玩家只需要 _10_ 個三星品質的該素材，則當程序提示 `Enter the target amount of the highest rarity type (0): ` 時，應輸入 `10`；  
    若不希望程序在三星品質該素材的數量達到 10 個時停止運行，則不輸入或輸入 `0`。
 
-3. 當程序提示 `Enter the amount for each rarity types: ` 時，在步驟 `1.` 所假設的情況下，應依次輸入所獲得的三星、二星的該素材數量，以空格分隔。
+3. 假設玩家某次獲得 _3_ 個三星品質和 _2_ 個二星品質的該素材，  
+   則當程序提示 `Enter the amount of each rarity type: ` 時，應輸入 `3 2`。
+
+[_`.\genshin-material-calculator.bat`_]: ./genshin-material-calculator.bat

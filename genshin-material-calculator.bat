@@ -2,7 +2,7 @@
 setLocal enableDelayedExpansion
 
 set /p rarities="Enter the number of rarity types (3): " || set rarities=3
-set /p target="Enter the amount of the target rarity (0): " || set target=0
+set /p target="Enter the target amount of the highest rarity type (0): " || set target=0
 
 :: Initializes amount array.
 for /L %%i in (1, 1, %rarities%) do (
@@ -15,7 +15,7 @@ if %target% neq 0 if %amounts[1]% geq %target% (
 )
 
 :: Adds inputs to the array.
-set /p inputs="Enter the amount for each rarity types: "
+set /p inputs="Enter the amount of each rarity type: "
 set i=1
 for %%a in (%inputs%) do (
     if !i! gtr %rarities% (

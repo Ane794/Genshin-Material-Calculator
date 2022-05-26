@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 read -p "Enter the number of rarity types (3): " rarities
 rarities=$(( rarities ? rarities : 3 ))
-read -p "Enter the amount of the target rarity (0): " target
+read -p "Enter the target amount of the highest rarity type (0): " target
 target=$(( target ? target : 0 ))
 
 until (( target && amounts[0] >= target )); do
   # Adds inputs to the array.
-	read -p "Enter the amount for each rarity types: " inputs
+	read -p "Enter the amount of each rarity type: " inputs
 	i=0
 	for a in $inputs; do
 		if (( i >= rarities )); then
@@ -14,8 +14,7 @@ until (( target && amounts[0] >= target )); do
 		fi
 		(( amounts[i++] += a ))
 	done
-	unset a i
-	unset inputs
+	unset a i inputs
 
   # Reduces.
 	c=0
