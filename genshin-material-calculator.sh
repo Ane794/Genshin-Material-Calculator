@@ -8,13 +8,13 @@ until (( target && amounts[0] >= target )); do
   # Adds inputs to the array.
 	read -p "Enter the amount of each rarity type: " inputs
 	i=0
-	for a in $inputs; do
+	for input in $inputs; do
 		if (( i >= rarities )); then
 			break
 		fi
-		(( amounts[i++] += a ))
+		(( amounts[i++] += input ))
 	done
-	unset a i inputs
+	unset input i inputs
 
   # Reduces.
 	c=0

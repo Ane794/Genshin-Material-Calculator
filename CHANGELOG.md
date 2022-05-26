@@ -2,8 +2,12 @@
 
 ## 0.1.1 - 2022/5/27
 
-修復注釋中的語法錯誤。
+### 修改
+
+- 修復注釋中的語法錯誤。
 
 ## 0.1 - 2022/1/14
 
-新增 Windows Batch 和 Linux Shell。
+### 新增
+
+- 新增 Windows Batch 和 Linux Shell。
